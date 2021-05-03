@@ -73,6 +73,7 @@ h1 {
 }
 
 .quoteBox-style{
+  background-image: url("https://www.wallpapershop.co.uk/images/holden-decor-cork-board-texture-plain-natural-wallpaper-p1203-6363_medium.jpg");
   width: 40%;
   min-width: 20rem;
   background-color: #e9d8c6;
@@ -84,7 +85,8 @@ h1 {
 .author-position{
   display: flex;
   justify-content: flex-end;
-  margin-top: -1px;
+  
+  color:#423d37;
 }
 
 #quote-container{
@@ -94,6 +96,7 @@ h1 {
 #quote{
   word-break: keep-all;
   word-wrap: break-word;
+  color:#423d37;
 }
 
 h1{
@@ -116,6 +119,7 @@ button:hover{
 .flex-buttons{
   display:flex;
   justify-content: space-between;
+  margin-top: 2rem;
 }
 
 a{
@@ -126,12 +130,45 @@ a{
   text-decoration: none;
 }
 
+#new-quote{
+  border: none;
+  background-color: #4e4842;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #e9d8c6;
+  padding: 0.4rem 1rem 0.4rem 1rem;
+}
+
 .icon-color{
-  color: #6d645b;
+  color: #4e4842;
   transition: all 0.2s;
 }
 
 .icon-color:hover{
   transition: all 0.2s;
   transform: scale(1.5) ;
+}
+
+#jump-container{
+  position: relative;
+  bottom: 10rem;
+  margin:auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+#bored{
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#jump-button{
+  font-weight: 700;
+  padding: 1rem 3rem 1rem 3rem;
+  background-color: rgb(240, 213, 95);
+  box-shadow: 0rem 0rem .5rem white;
+  border-radius: 2rem 1rem 2rem 1rem;
 }

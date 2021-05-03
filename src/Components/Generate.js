@@ -1,6 +1,6 @@
 const Generate = ({action}) => {
     return (
-        <button onClick={action}>New Quote</button>
+        <button id="new-quote" onClick={action}>New Quote</button>
     )
 }
 

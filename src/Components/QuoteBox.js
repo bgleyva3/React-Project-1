@@ -26,7 +26,7 @@ const QuoteBox = () => {
     }
 
     const randomColor = () => {
-        const arrayColors = ["#897853","#025955","#26001b","#ee9595","#f7a440","#de8971","#6930c3","#03506f","#a0937d","#b7657b","#a7d0cd","#766161","#ffc996","#f5f7b2","#ca8a8b","#bee5d3","#845460","#c64756","#e84545","#2b2e4a"];
+        const arrayColors = ["#bdd2b6","#2978b5","#897853","#025955","#ee9595","#4b778d","#de8971","#03506f","#a0937d","#b7657b","#a7d0cd","#766161","#ffc996","#ca8a8b","#bee5d3","#845460","#c64756","#2b2e4a"];
         const colorNumber = Math.round(Math.random()*arrayColors.length)
         return(arrayColors[colorNumber])
     }
