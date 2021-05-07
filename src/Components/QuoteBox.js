@@ -2,7 +2,7 @@ import Print from "./Print"
 import Share from "./Share"
 import Generate from "./Generate"
 import Quote from "./Quote"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 
 
 const QuoteBox = () => {
@@ -14,15 +14,18 @@ const QuoteBox = () => {
 
     const [quote, setQuote] = useState(initQuote);
     const [author, setAuthor] = useState(initAuthor);
-    const [originalFontSize, setOriginalFontSize] = useState(0);
+    const [fontSize, setFontSize] = useState("50px")
+    const [data, setData] = useState([])
+    const quoteText = useRef(null)
+    const quoteContainer = useRef(null)
     
 
     const newQuote = () => {
         randomNum = Math.round(Math.random()*quoteLength)
         quoteHandler(randomNum)
         authorHandler(randomNum)
-        /* resizeToFit() */
         document.body.style.backgroundColor = randomColor()
+        setFontSize("50px")
     }
 
     const randomColor = () => {
@@ -32,35 +35,7 @@ const QuoteBox = () => {
     }
 
     document.body.style.backgroundColor = randomColor()
-//-------------------------RESIZE TEXT--------------------------------------
-    useEffect(() => {
 
-        let output = document.getElementById("quote")
-        let outputContainer = document.getElementById("quote-container")
-        let fontSize = window.getComputedStyle(output).fontSize;  
-
-        const resizeToFit = () => {   
-            output = document.getElementById("quote")
-            outputContainer = document.getElementById("quote-container")
-            fontSize = window.getComputedStyle(output).fontSize;   
-            output.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
-    
-            if(output.clientHeight >= outputContainer.clientHeight){
-                resizeToFit();
-            }
-        }
-
-
-        if(originalFontSize === 0){
-            setOriginalFontSize(parseFloat(fontSize) + 'px')
-            resizeToFit();
-        }else{
-            output.style.fontSize = originalFontSize
-            resizeToFit();
-        }
-        
-    })
-//---------------------------------------------------------------------
     const quoteHandler = (randomNum) => {
         setQuote(Quote["quotes"][randomNum]["quote"])
     }
@@ -69,13 +44,32 @@ const QuoteBox = () => {
         setAuthor(Quote["quotes"][randomNum]["author"])
     }
 
+    useEffect(() => {
+        let quoteHeight = quoteText.current.clientHeight
+        let containerHeight = quoteContainer.current.clientHeight
+        if(quoteHeight > containerHeight){
+            setFontSize(parseFloat(fontSize)-1 + "px")
+        }
+    }, [quote, fontSize])
+
+    useEffect(() => {
+        const url = "https://gist.githubusercontent.com/carmandomx/3d7ac5f15af87a587e1d25f5ba96de61/raw/e2d848b87c730a580077de221666343c15b1a243/gistfile1.txt"
+        fetch(url)
+            .then(res => res.json())
+            .then(actualData =>{
+                console.log(actualData)
+                setData(actualData.quotes)
+            })
+    }, [])
+
+
     return(
         <div className="quoteBox-style">
             <div>
-                <Print quote={quote} author={author} />
+                <Print quote={quote} author={author} quoteText={quoteText} quoteContainer={quoteContainer} fontSize={fontSize}/>
                 <div className="flex-buttons">
                     <Share quote={quote} author={author}/>
-                    <Generate action={newQuote}/>
+                    <Generate action={newQuote} />
                 </div>
             </div>
         </div> 

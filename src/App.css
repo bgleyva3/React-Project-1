@@ -77,7 +77,7 @@ h1 {
   width: 40%;
   min-width: 20rem;
   background-color: #e9d8c6;
-  padding: 2rem;
+  padding: 3rem 2rem 2rem 2rem;
   border-radius: 1.5rem;
   box-shadow: 0rem 1rem 0.5rem rgba(0, 0, 0, 0.247);
 }
@@ -91,12 +91,15 @@ h1 {
 
 #quote-container{
    height: 14rem;
+   /* background-color: yellow; */
 }
 
 #quote{
   word-break: keep-all;
   word-wrap: break-word;
   color:#423d37;
+  /* background-color: rgba(255, 0, 0, 0.466); */
+  margin: 0;
 }
 
 h1{
