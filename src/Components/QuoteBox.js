@@ -14,7 +14,7 @@ const QuoteBox = () => {
 
     const [quote, setQuote] = useState(initQuote);
     const [author, setAuthor] = useState(initAuthor);
-    const [fontSize, setFontSize] = useState("50px")
+    const [fontSize, setFontSize] = useState("3rem")
     const [data, setData] = useState([])
     const quoteText = useRef(null)
     const quoteContainer = useRef(null)
@@ -25,7 +25,7 @@ const QuoteBox = () => {
         quoteHandler(randomNum)
         authorHandler(randomNum)
         document.body.style.backgroundColor = randomColor()
-        setFontSize("50px")
+        setFontSize("3rem")
     }
 
     const randomColor = () => {
@@ -48,7 +48,7 @@ const QuoteBox = () => {
         let quoteHeight = quoteText.current.clientHeight
         let containerHeight = quoteContainer.current.clientHeight
         if(quoteHeight > containerHeight){
-            setFontSize(parseFloat(fontSize)-1 + "px")
+            setFontSize(parseFloat(fontSize)-0.1 + "rem")
         }
     }, [quote, fontSize])
 
