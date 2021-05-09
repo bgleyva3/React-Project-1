@@ -1,19 +1,15 @@
 import Print from "./Print"
 import Share from "./Share"
 import Generate from "./Generate"
-import Quote from "./Quote"
 import {useState, useEffect, useRef} from "react"
 
 
 const QuoteBox = () => {
 
-    const quoteLength = Quote["quotes"].length-1;
-    let randomNum = Math.round(Math.random()*quoteLength)
-    const initQuote = Quote["quotes"][randomNum]["quote"]
-    const initAuthor = Quote["quotes"][randomNum]["author"]
+    let randomNum = ""
 
-    const [quote, setQuote] = useState(initQuote);
-    const [author, setAuthor] = useState(initAuthor);
+    const [quote, setQuote] = useState("");
+    const [author, setAuthor] = useState("");
     const [fontSize, setFontSize] = useState("3rem")
     const [data, setData] = useState([])
     const quoteText = useRef(null)
@@ -21,9 +17,10 @@ const QuoteBox = () => {
     
 
     const newQuote = () => {
-        randomNum = Math.round(Math.random()*quoteLength)
-        quoteHandler(randomNum)
-        authorHandler(randomNum)
+        randomNum = Math.round(Math.random()*(data.length-1))
+        console.log(randomNum)
+        setQuote(data[randomNum]["quote"])
+        setAuthor(data[randomNum]["author"])
         document.body.style.backgroundColor = randomColor()
         setFontSize("3rem")
     }
@@ -36,13 +33,6 @@ const QuoteBox = () => {
 
     document.body.style.backgroundColor = randomColor()
 
-    const quoteHandler = (randomNum) => {
-        setQuote(Quote["quotes"][randomNum]["quote"])
-    }
-
-    const authorHandler = (randomNum) => {
-        setAuthor(Quote["quotes"][randomNum]["author"])
-    }
 
     useEffect(() => {
         let quoteHeight = quoteText.current.clientHeight
@@ -53,20 +43,35 @@ const QuoteBox = () => {
     }, [quote, fontSize])
 
     useEffect(() => {
+        console.log("su")
         const url = "https://gist.githubusercontent.com/carmandomx/3d7ac5f15af87a587e1d25f5ba96de61/raw/e2d848b87c730a580077de221666343c15b1a243/gistfile1.txt"
         fetch(url)
             .then(res => res.json())
             .then(actualData =>{
-                console.log(actualData)
+                
                 setData(actualData.quotes)
             })
     }, [])
 
+    useEffect(() => {
+        console.log(data)
+        console.log("HEEEEY")
+        if(data.length>0){
+            newQuote();
+        }
+        
+    }, [data])
+    console.log("YO")
+    /* console.log(data)
+    console.log(data.length)
+    console.log(data[3])
+    console.log(data[3]["quote"])
+    console.log(data[3]["author"]) */
 
     return(
         <div className="quoteBox-style">
             <div>
-                <Print quote={quote} author={author} quoteText={quoteText} quoteContainer={quoteContainer} fontSize={fontSize}/>
+                <Print quote={quote} author={author} quoteRef={quoteText} containerRef={quoteContainer} fontSize={fontSize}/>
                 <div className="flex-buttons">
                     <Share quote={quote} author={author}/>
                     <Generate action={newQuote} />

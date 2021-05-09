@@ -175,3 +175,12 @@ a{
   box-shadow: 0rem 0rem .5rem white;
   border-radius: 2rem 1rem 2rem 1rem;
 }
+
+.text-1{
+  position:absolute;
+  top: 4rem;
+  transform: rotate(-5deg);
+  color: rgba(0, 0, 0, 0.548);
+  font-family: cursive ;
+  font-size: 2rem;
+}
