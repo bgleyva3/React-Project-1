@@ -1,10 +1,6 @@
 import {useEffect} from "react"
 const Print = ({quote, author, quoteRef, containerRef, fontSize}) => {
 
-    /* document.getElementById("quoteBox").outerHTML += `${resize()}` */
-    useEffect(() => {
-        console.log("ultimo useeffect")
-    },[])
     return(
         <div>
             <div id="quote-container" ref={containerRef}>

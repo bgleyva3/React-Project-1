@@ -6,8 +6,6 @@ import {useState, useEffect, useRef} from "react"
 
 const QuoteBox = () => {
 
-    let randomNum = ""
-
     const [quote, setQuote] = useState("");
     const [author, setAuthor] = useState("");
     const [fontSize, setFontSize] = useState("3rem")
@@ -15,25 +13,22 @@ const QuoteBox = () => {
     const quoteText = useRef(null)
     const quoteContainer = useRef(null)
     
-
+// Esta función ES candidata a un callBack Hook porque no depende de ningún cambio de estado
     const newQuote = () => {
-        randomNum = Math.round(Math.random()*(data.length-1))
-        console.log(randomNum)
+        let randomNum = Math.round(Math.random()*(data.length-1))
         setQuote(data[randomNum]["quote"])
         setAuthor(data[randomNum]["author"])
-        document.body.style.backgroundColor = randomColor()
         setFontSize("3rem")
     }
 
-    const randomColor = () => {
+// Esta NO es candidata a un callBack Hook porque useEffect ya controla su Renderizado
+    useEffect (() => {
         const arrayColors = ["#bdd2b6","#2978b5","#897853","#025955","#ee9595","#4b778d","#de8971","#03506f","#a0937d","#b7657b","#a7d0cd","#766161","#ffc996","#ca8a8b","#bee5d3","#845460","#c64756","#2b2e4a"];
         const colorNumber = Math.round(Math.random()*arrayColors.length)
-        return(arrayColors[colorNumber])
-    }
+        document.body.style.backgroundColor = arrayColors[colorNumber];
+    }, [quote])
 
-    document.body.style.backgroundColor = randomColor()
-
-
+// Esta NO es candidata a un callBack Hook porque useEffect ya controla su Renderizado
     useEffect(() => {
         let quoteHeight = quoteText.current.clientHeight
         let containerHeight = quoteContainer.current.clientHeight
@@ -42,6 +37,7 @@ const QuoteBox = () => {
         }
     }, [quote, fontSize])
 
+// Esta NO es candidata a un callBack Hook porque solo se ejecuta una sola vez
     useEffect(() => {
         console.log("su")
         const url = "https://gist.githubusercontent.com/carmandomx/3d7ac5f15af87a587e1d25f5ba96de61/raw/e2d848b87c730a580077de221666343c15b1a243/gistfile1.txt"
@@ -53,20 +49,13 @@ const QuoteBox = () => {
             })
     }, [])
 
+    // Esta función NO es candidata a un callBack hook porque useEffect ya controla su Renderizado
     useEffect(() => {
-        console.log(data)
-        console.log("HEEEEY")
         if(data.length>0){
             newQuote();
         }
         
     }, [data])
-    console.log("YO")
-    /* console.log(data)
-    console.log(data.length)
-    console.log(data[3])
-    console.log(data[3]["quote"])
-    console.log(data[3]["author"]) */
 
     return(
         <div className="quoteBox-style">
