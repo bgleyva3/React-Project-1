@@ -91,15 +91,24 @@ h1 {
 
 #quote-container{
    height: 14rem;
-   /* background-color: yellow; */
+   overflow: hidden;
 }
 
 #quote{
   word-break: keep-all;
   word-wrap: break-word;
-  color:#423d37;
-  /* background-color: rgba(255, 0, 0, 0.466); */
   margin: 0;
+  overflow: hidden;
+}
+
+.pin-container{
+  display:flex;
+  justify-content: space-between;
+  margin: -2rem -1rem 1rem -1rem;
+}
+
+.pin{
+  width: 2.5rem;
 }
 
 h1{

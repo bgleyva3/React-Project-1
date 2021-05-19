@@ -12,6 +12,7 @@ const QuoteBox = () => {
     const [data, setData] = useState([])
     const quoteText = useRef(null)
     const quoteContainer = useRef(null)
+    const [displayColor, setDisplayColor] = useState({color: "#423d3700"})
     
 // Esta función ES candidata a un callBack Hook porque no depende de ningún cambio de estado
     const newQuote = () => {
@@ -19,6 +20,7 @@ const QuoteBox = () => {
         setQuote(data[randomNum]["quote"])
         setAuthor(data[randomNum]["author"])
         setFontSize("3rem")
+        setDisplayColor({color: "#423d3700"})
     }
 
 // Esta NO es candidata a un callBack Hook porque useEffect ya controla su Renderizado
@@ -34,6 +36,10 @@ const QuoteBox = () => {
         let containerHeight = quoteContainer.current.clientHeight
         if(quoteHeight > containerHeight){
             setFontSize(parseFloat(fontSize)-0.1 + "rem")
+            console.log(".")
+        }else{
+            console.log("FINISHED")
+            setDisplayColor({color: "#423d37"})
         }
     }, [quote, fontSize])
 
@@ -60,7 +66,11 @@ const QuoteBox = () => {
     return(
         <div className="quoteBox-style">
             <div>
-                <Print quote={quote} author={author} quoteRef={quoteText} containerRef={quoteContainer} fontSize={fontSize}/>
+                <div className="pin-container">
+                    <img className="pin" src="pin.png" />
+                    <img className="pin" src="pin.png" />
+                </div>
+                <Print displayColor={displayColor} quote={quote} author={author} quoteRef={quoteText} containerRef={quoteContainer} fontSize={fontSize}/>
                 <div className="flex-buttons">
                     <Share quote={quote} author={author}/>
                     <Generate action={newQuote} />
